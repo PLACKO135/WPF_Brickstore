@@ -7,22 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="datagrid" AutoGenerateColumns="False">
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="697*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="27*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="drgBrick" Grid.RowSpan="2">
             <DataGrid.Columns>
-
                 <DataGridTextColumn Header="Item ID" Binding="{Binding ItemID}" />
-
                 <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" />
-
                 <DataGridTextColumn Header="Category Name" Binding="{Binding CategoryName}" />
-
                 <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}" />
-
                 <DataGridTextColumn Header="Qty" Binding="{Binding Qty}" />
-
             </DataGrid.Columns>
-
         </DataGrid>
+        <TextBox Grid.Column="1" x:Name="txtSearchbox"/>
     </Grid>
 </Window>

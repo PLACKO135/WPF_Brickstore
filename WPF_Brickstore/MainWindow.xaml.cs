@@ -27,16 +27,15 @@ namespace WPF_Brickstore
         {
 
             InitializeComponent();
+            ReadFileToDataGrid();
 
         }
 
 
-        private void ReadFileToDataGrid(string filePath)
-
+        private void ReadFileToDataGrid()
         {
 
-            List<Brkdata> data = new List<Brkdata>();
-
+            List<Brkdata> brickDataList = new List<Brkdata>();
 
             XDocument xaml = XDocument.Load("brickstore_parts_4643-1-power-boat-transporter.bsx");
             foreach (var elem in xaml.Descendants("Item"))
@@ -47,11 +46,12 @@ namespace WPF_Brickstore
                 string szinnev = elem.Element("ColorName").Value;
                 int mennyiseg = int.Parse(elem.Element("Qty").Value);
 
+
+                Brkdata data = new Brkdata(id, nev, kategoria, szinnev, mennyiseg);
+                brickDataList.Add(data);
             }
 
-
-
-            datagrid.ItemsSource = data;
+            drgBrick.ItemsSource = brickDataList;
 
         }
 

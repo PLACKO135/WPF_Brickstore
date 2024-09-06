@@ -7,6 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <DataGrid Name="datagrid" AutoGenerateColumns="False">
 
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Item ID" Binding="{Binding ItemID}" />
+
+                <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" />
+
+                <DataGridTextColumn Header="Category Name" Binding="{Binding CategoryName}" />
+
+                <DataGridTextColumn Header="Color Name" Binding="{Binding ColorName}" />
+
+                <DataGridTextColumn Header="Qty" Binding="{Binding Qty}" />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </Window>

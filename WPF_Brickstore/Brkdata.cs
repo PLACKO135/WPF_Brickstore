@@ -8,13 +8,7 @@ namespace WPF_Brickstore
 {
     internal class Brkdata
     {
-        int ItemID { get; set; }
-        string ItemName { get; set; }
-        string CategoryName { get; set; }
-        string ColorName { get; set; }
-        int Qty { get; set; }
-
-        public Brkdata(int itemID, string itemName, string categoryName, string colorName, int qty)
+        public Brkdata(string itemID, string itemName, string categoryName, string colorName, int qty)
         {
             ItemID = itemID;
             ItemName = itemName;
@@ -22,6 +16,18 @@ namespace WPF_Brickstore
             ColorName = colorName;
             Qty = qty;
         }
+
+        public string ItemID { get; set; }
+
+        public string ItemName { get; set; }
+
+        public string CategoryName { get; set; }
+
+        public string ColorName { get; set; }
+
+        public int Qty { get; set; }
+
+        
 
      
     }

@@ -24,6 +24,6 @@
                 <DataGridTextColumn Header="Qty" Binding="{Binding Qty}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox Grid.Column="1" x:Name="txtSearchbox"/>
+        <TextBox Grid.Column="1" x:Name="txtSearchbox" TextChanged="txtSearchbox_TextChanged"/>
     </Grid>
 </Window>

@@ -28,39 +28,54 @@ namespace WPF_Brickstore
         public MainWindow()
         {
             InitializeComponent();
-            LoadcmbItems();
         }
 
         private void txtSearchboxItemname_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string searchText = txtSearchboxItemname.Text.ToLower();
-            var filteredData = _brickDataList.Where(x =>
-                x.ItemName.ToLower().Contains(searchText));
-
-            drgBrick.ItemsSource = filteredData;
+            ApplyFilters();
         }
-      
+
         private void txtSearchboxItemId_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string searchText = txtSearchboxItemId.Text.ToLower();
-            var filteredData = _brickDataList.Where(x =>
-                x.ItemID.ToLower().Contains(searchText));
-
-            drgBrick.ItemsSource = filteredData;
+            ApplyFilters();
         }
 
         private void cmbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
-            string searchText = cmbCategory.SelectedItem.ToString().ToLower();
+        {
+            ApplyFilters();
+        }
+
+        private void ApplyFilters()
+        {
+            string itemNameSearchText = txtSearchboxItemname.Text.ToLower();
+            string itemIdSearchText = txtSearchboxItemId.Text.ToLower();
+            string selectedCategory = cmbCategory.SelectedItem?.ToString().ToLower();
+
             var filteredData = _brickDataList.Where(x =>
-                x.CategoryName.ToLower().Contains(searchText));
+                (string.IsNullOrEmpty(itemNameSearchText) || x.ItemName.ToLower().Contains(itemNameSearchText)) &&
+                (string.IsNullOrEmpty(itemIdSearchText) || x.ItemID.ToLower().Contains(itemIdSearchText)) &&
+                (selectedCategory == null || x.CategoryName.ToLower().Contains(selectedCategory)));
 
             drgBrick.ItemsSource = filteredData;
+
+            // Update the cmbCategory items based on the filtered data
+            var categories = filteredData.Select(x => x.CategoryName).Distinct().ToList();
+            cmbCategory.ItemsSource = categories;
+
+            // If a category was previously selected, try to re-select it
+            if (selectedCategory != null)
+            {
+                cmbCategory.SelectedItem = categories.FirstOrDefault(x => x.ToLower() == selectedCategory);
+            }
+            else
+            {
+                cmbCategory.SelectedIndex = -1; // Clear the selection
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-             OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "BSX files (*.bsx)|*.bsx";
             openFileDialog.Title = "Select a BSX file";
 
@@ -82,6 +97,7 @@ namespace WPF_Brickstore
                 }
 
                 drgBrick.ItemsSource = _brickDataList;
+                LoadcmbItems(); 
             }
             else
             {
@@ -91,7 +107,7 @@ namespace WPF_Brickstore
 
         private void LoadcmbItems()
         {
-           
+            ApplyFilters();
         }
     }
 

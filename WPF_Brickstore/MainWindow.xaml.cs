@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using System.Reflection;
 
 
 namespace WPF_Brickstore
@@ -27,12 +28,39 @@ namespace WPF_Brickstore
         public MainWindow()
         {
             InitializeComponent();
-            ReadFileToDataGrid();
+            LoadcmbItems();
         }
 
-        private void ReadFileToDataGrid()
+        private void txtSearchboxItemname_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string searchText = txtSearchboxItemname.Text.ToLower();
+            var filteredData = _brickDataList.Where(x =>
+                x.ItemName.ToLower().Contains(searchText));
+
+            drgBrick.ItemsSource = filteredData;
+        }
+      
+        private void txtSearchboxItemId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = txtSearchboxItemId.Text.ToLower();
+            var filteredData = _brickDataList.Where(x =>
+                x.ItemID.ToLower().Contains(searchText));
+
+            drgBrick.ItemsSource = filteredData;
+        }
+
+        private void cmbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {           
+            string searchText = cmbCategory.SelectedItem.ToString().ToLower();
+            var filteredData = _brickDataList.Where(x =>
+                x.CategoryName.ToLower().Contains(searchText));
+
+            drgBrick.ItemsSource = filteredData;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "BSX files (*.bsx)|*.bsx";
             openFileDialog.Title = "Select a BSX file";
 
@@ -55,19 +83,15 @@ namespace WPF_Brickstore
 
                 drgBrick.ItemsSource = _brickDataList;
             }
+            else
+            {
+                MessageBox.Show("Select a file");
+            }
         }
 
-     
-
-        private void txtSearchbox_TextChanged(object sender, TextChangedEventArgs e)
+        private void LoadcmbItems()
         {
-            string searchText = txtSearchbox.Text.ToLower();
-            var filteredData = _brickDataList.Where(x =>
-                x.ItemID.ToLower().Contains(searchText) ||
-                x.ItemName.ToLower().Contains(searchText) ||
-                x.CategoryName.ToLower().Contains(searchText));
-
-            drgBrick.ItemsSource = filteredData;
+           
         }
     }
 

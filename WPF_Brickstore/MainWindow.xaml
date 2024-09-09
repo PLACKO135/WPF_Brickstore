@@ -8,14 +8,16 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="697*"/>
-            <ColumnDefinition Width="103*"/>
+            <ColumnDefinition Width="600*"/>
+            <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="drgBrick" Grid.RowSpan="2">
+        <DataGrid Name="drgBrick" Grid.RowSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item ID" Binding="{Binding ItemID}" />
                 <DataGridTextColumn Header="Item Name" Binding="{Binding ItemName}" />
@@ -24,6 +26,13 @@
                 <DataGridTextColumn Header="Qty" Binding="{Binding Qty}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox Grid.Column="1" x:Name="txtSearchbox" TextChanged="txtSearchbox_TextChanged"/>
+
+        <Label Content="Search Id" Grid.Column="1"/>
+        <TextBox Grid.Column="1" Height="50" x:Name="txtSearchboxItemId" TextChanged="txtSearchboxItemId_TextChanged" />
+        <Label Content="Search Name" Grid.Row="1" Grid.Column="1"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Height="50" x:Name="txtSearchboxItemname" TextChanged="txtSearchboxItemname_TextChanged"/>
+        <Label Content="Search Category" Grid.Row="2" Grid.Column="1"/>
+        <ComboBox Grid.Column="1" Grid.Row="2"  Height="50" x:Name="cmbCategory" SelectionChanged="cmbCategory_SelectionChanged"/>
+        <Button Content="Select file" Grid.Column="1" Grid.Row="3" Click="Button_Click" />
     </Grid>
 </Window>

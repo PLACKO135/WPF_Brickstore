@@ -73,6 +73,8 @@ namespace WPF_Brickstore
             }
         }
 
+
+        //todo make it to work with folders instead of single files
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

@@ -58,7 +58,8 @@ namespace WPF_Brickstore
 
             drgBrick.ItemsSource = filteredData;
 
-            var categories = filteredData.Select(x => x.CategoryName).Distinct().ToList();
+            var categories = filteredData.Select(x => x.CategoryName).Distinct().OrderByDescending(x => x).ToList();
+
             cmbCategory.ItemsSource = categories;
 
 
@@ -76,7 +77,7 @@ namespace WPF_Brickstore
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "BSX files (*.bsx)|*.bsx";
-            openFileDialog.Title = "Select a BSX file";
+            openFileDialog.Title = "Select a .BSX file";
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -100,13 +101,23 @@ namespace WPF_Brickstore
             }
             else
             {
-                MessageBox.Show("Select a file");
+                MessageBox.Show("Select a .BSX file to begin!");
             }
         }
 
         private void LoadcmbItems()
         {
             ApplyFilters();
+        }
+
+        private void btnclearfilters_Click(object sender, RoutedEventArgs e)
+        {
+            txtSearchboxItemId.Text="";
+            txtSearchboxItemname.Text="";
+            cmbCategory.SelectedIndex = -1; 
+
+            ApplyFilters();
+
         }
     }
 

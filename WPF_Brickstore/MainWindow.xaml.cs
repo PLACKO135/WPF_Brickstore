@@ -80,7 +80,7 @@ namespace WPF_Brickstore
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "BSX files (*.bsx)|*.bsx";
             openFileDialog.Title = "Select a .BSX file";
-
+            
             if (openFileDialog.ShowDialog() == true)
             {
                 _brickDataList = new List<Brkdata>();
